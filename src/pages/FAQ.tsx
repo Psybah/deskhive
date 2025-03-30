@@ -155,9 +155,9 @@ const FAQ = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-grow pt-16">
-        {/* Hero Section */}
-        <section className="py-10 md:py-16 px-4 md:px-8 bg-gradient-to-b from-deskhive-skyblue to-white">
+      <main className="flex-grow">
+        {/* Hero Section - Added more top padding for floating navbar */}
+        <section className="py-10 pt-28 md:pt-32 md:py-16 px-4 md:px-8 bg-gradient-to-b from-deskhive-skyblue to-white">
           <div className="container mx-auto">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-deskhive-navy mb-4 md:mb-6 animate-fade-in">

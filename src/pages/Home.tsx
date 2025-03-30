@@ -41,8 +41,8 @@ const Home = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        {/* Hero Section - Improved spacing */}
-        <section className="relative bg-gradient-to-b from-deskhive-skyblue to-white overflow-hidden py-16 md:py-24 px-4 md:px-8 lg:px-16">
+        {/* Hero Section - Increased top padding for more space below floating navbar */}
+        <section className="relative bg-gradient-to-b from-deskhive-skyblue to-white overflow-hidden pt-44 md:pt-44 pb-16 md:pb-24 px-4 md:px-8 lg:px-16">
           <div className="absolute inset-0 bg-[url('/lovable-uploads/e4637799-cdf0-41b0-af2b-8393e9f28fe0.png')] opacity-5 bg-center bg-no-repeat bg-contain"></div>
           <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-16">
