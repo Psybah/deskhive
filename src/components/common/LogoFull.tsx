@@ -1,4 +1,3 @@
-
 import React from "react";
 
 interface LogoFullProps {
@@ -10,9 +9,12 @@ const LogoFull: React.FC<LogoFullProps> = ({ className = "" }) => {
   const combinedClassName = `${baseClassName} ${className}`;
 
   return (
-    <div className={`flex items-center ${combinedClassName}`}>
-      <span className="text-deskhive-navy">Desk</span>
-      <span className="text-deskhive-orange">Hive</span>
+    <div className={`flex items-center gap-2 ${combinedClassName}`}>
+      <img src="/logo.svg" alt="DeskHive Logo" className="h-8 w-8" />
+      <div className="flex">
+        <span className="text-deskhive-navy">Desk</span>
+        <span className="text-deskhive-orange">Hive</span>
+      </div>
     </div>
   );
 };

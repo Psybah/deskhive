@@ -110,14 +110,10 @@ const Footer = () => {
         
         <div className="border-t border-white/10 pt-6 mt-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <p className="text-white/60 text-sm">
+            <p className="text-white/60 text-sm text-center">
               © {new Date().getFullYear()} DeskHive. All rights reserved.
             </p>
-            <div className="mt-4 md:mt-0">
-              <p className="text-white/60 text-sm">
-                Made with ❤️ in Nigeria
-              </p>
-            </div>
+            
           </div>
         </div>
       </div>

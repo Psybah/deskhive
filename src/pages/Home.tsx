@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -42,37 +41,37 @@ const Home = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-b from-deskhive-skyblue to-white overflow-hidden py-10 md:py-16 px-4 md:px-8 lg:px-16">
+        {/* Hero Section - Improved spacing */}
+        <section className="relative bg-gradient-to-b from-deskhive-skyblue to-white overflow-hidden py-16 md:py-24 px-4 md:px-8 lg:px-16">
           <div className="absolute inset-0 bg-[url('/lovable-uploads/e4637799-cdf0-41b0-af2b-8393e9f28fe0.png')] opacity-5 bg-center bg-no-repeat bg-contain"></div>
           <div className="container mx-auto">
-            <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+            <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-16">
               <div className="flex-1 animate-fade-in">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-deskhive-navy mb-4 md:mb-6 leading-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-deskhive-navy mb-6 md:mb-8 leading-tight">
                   The Smarter Way to Manage <span className="text-deskhive-orange">Workspaces</span>
                 </h1>
-                <p className="text-base md:text-lg text-deskhive-darkgray/80 mb-6 md:mb-8 max-w-2xl">
+                <p className="text-base md:text-lg text-deskhive-darkgray/80 mb-8 md:mb-10 max-w-2xl">
                   Book, manage, and optimize workspaces efficiently with DeskHive - 
                   Nigeria's premier workspace management solution designed for the modern workforce.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 mb-8 md:mb-10">
                   <Link to="/register">
-                    <Button className="btn-primary h-10 md:h-12 px-6 md:px-8 text-sm md:text-base">
-                      Get Started <ChevronRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                    <Button className="btn-primary h-12 px-8 text-base w-full sm:w-auto">
+                      Get Started <ChevronRight className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
                   <Link to="/login">
-                    <Button variant="outline" className="h-10 md:h-12 px-6 md:px-8 text-sm md:text-base border-deskhive-navy text-deskhive-navy hover:bg-deskhive-navy/5">
+                    <Button variant="outline" className="h-12 px-8 text-base border-deskhive-navy text-deskhive-navy hover:bg-deskhive-navy/5 w-full sm:w-auto">
                       Log In
                     </Button>
                   </Link>
                 </div>
-                <div className="flex items-center gap-3 md:gap-4 mt-6 md:mt-8">
-                  <p className="text-sm md:text-base text-deskhive-darkgray">Trusted by 100+ companies across Nigeria</p>
-                  <div className="h-px bg-deskhive-coolgray flex-1 max-w-[80px] md:max-w-[100px]"></div>
+                <div className="flex items-center gap-4 mt-2">
+                  <p className="text-sm md:text-base text-deskhive-darkgray">Trusted by 100+ users across Nigeria</p>
+                  <div className="h-px bg-deskhive-coolgray flex-1 max-w-[100px]"></div>
                 </div>
               </div>
-              <div className="flex-1 animate-slide-up w-full max-w-md lg:max-w-none mx-auto lg:mx-0">
+              <div className="flex-1 animate-slide-up w-full max-w-md lg:max-w-none mx-auto lg:mx-0 mt-8 lg:mt-0">
                 <HeroImage />
               </div>
             </div>

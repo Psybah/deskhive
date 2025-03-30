@@ -26,7 +26,7 @@ DeskHive is Nigeria's premier workspace management solution designed for modern 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Psybah/deskhive-test.git
+   git clone https://github.com/Psybah/deskhive.git
    cd deskhive
    ```
 2. Install dependencies:

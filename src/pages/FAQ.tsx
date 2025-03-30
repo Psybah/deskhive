@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -10,13 +9,17 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion";
-import { Search } from "lucide-react";
+import { Search, Rocket, Calendar, CreditCard, Wrench, User } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 const FAQ = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
   const faqCategories = [
     {
       name: "Getting Started",
-      icon: "🚀",
+      icon: <Rocket className="h-5 w-5 md:h-6 md:w-6 text-deskhive-orange text-left" />,
       questions: [
         {
           question: "What is DeskHive?",
@@ -28,7 +31,7 @@ const FAQ = () => {
         },
         {
           question: "Is DeskHive available on mobile devices?",
-          answer: "Yes, DeskHive is fully responsive and works on all devices. We also offer dedicated mobile apps for iOS and Android for an enhanced mobile experience. You can download them from the App Store or Google Play Store."
+          answer: "Yes, DeskHive is fully responsive and works on all devices. You can access all features directly from your mobile browser without any functionality limitations."
         },
         {
           question: "Can I try DeskHive before purchasing?",
@@ -38,7 +41,7 @@ const FAQ = () => {
     },
     {
       name: "Booking & Reservations",
-      icon: "📅",
+      icon: <Calendar className="h-5 w-5 md:h-6 md:w-6 text-deskhive-orange text-left" />,
       questions: [
         {
           question: "How far in advance can I book a workspace?",
@@ -60,7 +63,7 @@ const FAQ = () => {
     },
     {
       name: "Billing & Pricing",
-      icon: "💳",
+      icon: <CreditCard className="h-5 w-5 md:h-6 md:w-6 text-deskhive-orange text-left" />,
       questions: [
         {
           question: "What payment methods do you accept?",
@@ -82,7 +85,7 @@ const FAQ = () => {
     },
     {
       name: "Technical Support",
-      icon: "🔧",
+      icon: <Wrench className="h-5 w-5 md:h-6 md:w-6 text-deskhive-orange text-left" />,
       questions: [
         {
           question: "How can I get technical support?",
@@ -104,7 +107,7 @@ const FAQ = () => {
     },
     {
       name: "Account Management",
-      icon: "👤",
+      icon: <User className="h-5 w-5 md:h-6 md:w-6 text-deskhive-orange text-left" />,
       questions: [
         {
           question: "How do I update my profile information?",
@@ -126,30 +129,54 @@ const FAQ = () => {
     }
   ];
 
+  // Filter questions based on search query
+  const filteredCategories = faqCategories.map(category => {
+    return {
+      ...category,
+      questions: category.questions.filter(q => 
+        q.question.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        q.answer.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    };
+  }).filter(category => category.questions.length > 0);
+
+  const handleCategoryClick = (categoryName: string) => {
+    setActiveCategory(categoryName);
+    const element = document.getElementById(categoryName.toLowerCase().replace(/\s+/g, '-'));
+    if (element) {
+      // Add offset for fixed header
+      const yOffset = -100; 
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({top: y, behavior: 'smooth'});
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-grow">
+      <main className="flex-grow pt-16">
         {/* Hero Section */}
-        <section className="section-padding bg-gradient-to-b from-deskhive-skyblue to-white">
+        <section className="py-10 md:py-16 px-4 md:px-8 bg-gradient-to-b from-deskhive-skyblue to-white">
           <div className="container mx-auto">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-5xl font-bold text-deskhive-navy mb-6 animate-fade-in">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-deskhive-navy mb-4 md:mb-6 animate-fade-in">
                 Frequently Asked Questions
               </h1>
-              <p className="text-xl text-deskhive-darkgray/80 mb-10 animate-fade-in">
+              <p className="text-base md:text-lg text-deskhive-darkgray/80 mb-6 md:mb-10 animate-fade-in">
                 Find answers to common questions about DeskHive's workspace management platform.
               </p>
               
               <div className="relative max-w-xl mx-auto animate-fade-in">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-deskhive-darkgray/50" />
+                  <Search className="h-4 w-4 md:h-5 md:w-5 text-deskhive-darkgray/50" />
                 </div>
-                <input
+                <Input
                   type="text"
                   className="glass-input w-full pl-10 focus:ring-deskhive-navy/30"
                   placeholder="Search FAQ questions..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
             </div>
@@ -157,40 +184,68 @@ const FAQ = () => {
         </section>
         
         {/* FAQ Categories */}
-        <section className="section-padding bg-white">
+        <section className="py-10 md:py-16 px-4 md:px-8 bg-white">
           <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto mb-16">
-              {faqCategories.map((category, index) => (
-                <a 
-                  key={index}
-                  href={`#${category.name.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="glass-card p-6 text-center hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="text-4xl mb-3">{category.icon}</div>
-                  <h3 className="text-lg font-semibold text-deskhive-navy">{category.name}</h3>
-                </a>
-              ))}
+            {/* Category buttons - horizontal scrollable on mobile */}
+            <div className="overflow-x-auto pb-4 mb-8 md:mb-16 -mx-4 px-4 md:px-0 md:overflow-visible">
+              <div className="flex md:grid md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-6 w-max md:w-auto md:max-w-6xl mx-auto">
+                {faqCategories.map((category, index) => (
+                  <button 
+                    key={index}
+                    onClick={() => handleCategoryClick(category.name)}
+                    className={`glass-card p-3 md:p-6 text-center hover:shadow-lg transition-all duration-300 flex flex-col items-center min-w-[120px] md:min-w-0 ${
+                      activeCategory === category.name ? 'ring-2 ring-deskhive-orange/50' : ''
+                    }`}
+                  >
+                    <div className="bg-deskhive-skyblue/50 p-2 md:p-3 rounded-full mb-2 md:mb-3">
+                      {category.icon}
+                    </div>
+                    <h3 className="text-sm md:text-base font-medium text-deskhive-navy">{category.name}</h3>
+                  </button>
+                ))}
+              </div>
             </div>
             
             <div className="max-w-3xl mx-auto">
-              {faqCategories.map((category, categoryIndex) => (
+              {searchQuery && filteredCategories.length === 0 && (
+                <div className="text-center py-8">
+                  <p className="text-deskhive-darkgray">No results found for "{searchQuery}"</p>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setSearchQuery('')}
+                    className="mt-4"
+                  >
+                    Clear search
+                  </Button>
+                </div>
+              )}
+              
+              {(searchQuery ? filteredCategories : faqCategories).map((category, categoryIndex) => (
                 <div 
                   key={categoryIndex} 
                   id={category.name.toLowerCase().replace(/\s+/g, '-')}
-                  className="mb-16"
+                  className="mb-10 md:mb-16 scroll-mt-24"
                 >
-                  <h2 className="text-2xl font-bold text-deskhive-navy mb-6 flex items-center">
-                    <span className="text-2xl mr-3">{category.icon}</span>
-                    {category.name}
-                  </h2>
+                  <div className="flex items-center mb-4 md:mb-6">
+                    <div className="bg-deskhive-skyblue/50 p-2 rounded-full mr-3">
+                      {category.icon}
+                    </div>
+                    <h2 className="text-xl md:text-2xl font-bold text-deskhive-navy">
+                      {category.name}
+                    </h2>
+                  </div>
                   
-                  <Accordion type="single" collapsible className="space-y-4">
+                  <Accordion type="single" collapsible className="space-y-3 md:space-y-4">
                     {category.questions.map((faq, faqIndex) => (
-                      <AccordionItem key={faqIndex} value={`item-${categoryIndex}-${faqIndex}`} className="glass-card">
-                        <AccordionTrigger className="text-lg font-medium text-deskhive-navy px-6">
+                      <AccordionItem 
+                        key={faqIndex} 
+                        value={`item-${categoryIndex}-${faqIndex}`} 
+                        className="glass-card border border-gray-100 shadow-sm"
+                      >
+                        <AccordionTrigger className="text-base md:text-lg font-medium text-deskhive-navy px-4 md:px-6 py-3 md:py-4 hover:no-underline">
                           {faq.question}
                         </AccordionTrigger>
-                        <AccordionContent className="text-deskhive-darkgray/80 px-6 pb-6">
+                        <AccordionContent className="text-sm md:text-base text-deskhive-darkgray/80 px-4 md:px-6 pb-4 md:pb-6 leading-relaxed">
                           {faq.answer}
                         </AccordionContent>
                       </AccordionItem>
@@ -203,14 +258,14 @@ const FAQ = () => {
         </section>
         
         {/* Still Have Questions */}
-        <section className="section-padding bg-deskhive-skyblue">
+        <section className="py-10 md:py-16 px-4 md:px-8 bg-deskhive-skyblue">
           <div className="container mx-auto">
-            <div className="max-w-3xl mx-auto text-center glass-card p-10">
-              <h2 className="text-3xl font-bold text-deskhive-navy mb-6">Still Have Questions?</h2>
-              <p className="text-lg text-deskhive-darkgray/80 mb-8">
+            <div className="max-w-3xl mx-auto text-center glass-card p-6 md:p-10 shadow-md">
+              <h2 className="text-2xl md:text-3xl font-bold text-deskhive-navy mb-3 md:mb-6">Still Have Questions?</h2>
+              <p className="text-base md:text-lg text-deskhive-darkgray/80 mb-6 md:mb-8">
                 Can't find the answer you're looking for? Our support team is here to help.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
                 <Button asChild variant="default" className="btn-primary">
                   <Link to="/contact">Contact Support</Link>
                 </Button>

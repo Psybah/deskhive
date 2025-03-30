@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const Register = () => {
@@ -294,7 +292,6 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
