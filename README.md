@@ -1,69 +1,75 @@
-# Welcome to your Lovable project
+# DeskHive
 
-## Project info
+DeskHive is Nigeria's premier workspace management solution designed for modern professionals and businesses. The platform allows users to discover, book, and manage workspaces efficiently, helping organizations optimize their space utilization and employees find the right workspace for their needs.
 
-**URL**: https://lovable.dev/projects/fbf4ff96-4393-40ab-a8f6-c0c6b0d3ffef
+## Project Info
 
-## How can I edit this code?
+**URL**: [example.com](example.com)
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- **Easy Booking System**: Book workspaces with a few clicks through an intuitive calendar interface.
+- **Interactive Floor Plans**: Navigate workspaces visually with detailed floor plans showing real-time availability.
+- **Smart Notifications**: Receive timely reminders about bookings and important updates.
+- **Usage Analytics**: Gain insights into workspace utilization patterns.
+- **Team Collaboration**: Coordinate with team members by viewing shared calendars and booking group workspaces.
+- **Admin Dashboard**: Comprehensive analytics and workspace management tools for administrators.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fbf4ff96-4393-40ab-a8f6-c0c6b0d3ffef) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v16 or higher)
+- npm or yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Psybah/deskhive-test.git
+   cd deskhive
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+   or
+   ```bash
+   yarn
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   or
+   ```bash
+   yarn dev
+   ```
 
-Follow these steps:
+4. Open your browser and navigate to `http://localhost:8080`
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Project Structure- `/src/components`: UI components organized by purpose
+  - `/admin`: Admin dashboard components
+  - `/common`: Shared components like Logo, LoadingDisplay
+  - `/dashboard`: User dashboard components
+  - `/home`: Homepage components
+  - `/layout`: Layout components like Navbar, Footer
+  - `/ui`: shadcn UI components
+- `/src/pages`: Page components for different routes
+- `/src/hooks`: Custom React hooks
+- `/src/lib`: Utility functions
+- `/src/data`: Mock data for workspaces and bookings
+- `/src/integrations`: Integration with Supabase
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Technologies Used
 
-# Step 3: Install the necessary dependencies.
-npm i
+- **Frontend Framework**: React with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui (based on Radix UI)
+- **Routing**: React Router
+- **State Management**: React Query
+- **Charts**: Recharts
+- **Backend/Database**: Supabase
+- **Form Handling**: React Hook Form with Zod validation
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/fbf4ff96-4393-40ab-a8f6-c0c6b0d3ffef) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
