@@ -53,3 +53,39 @@ export const workspaces = [
     enabled: true
   }
 ];
+
+// Sample check-in data
+export const checkIns = [
+  { 
+    id: "check-1", 
+    learnerId: "user-001",
+    learnerName: "John Doe", 
+    email: "john.doe@example.com", 
+    hubId: "ws-001",
+    hub: "RALNO HUB AKOWONJO", 
+    checkInTime: new Date(2023, 9, 15, 9, 30).toISOString(), 
+    checkOutTime: new Date(2023, 9, 15, 16, 45).toISOString(),
+    status: "completed"
+  },
+  { 
+    id: "check-2", 
+    learnerId: "user-002",
+    learnerName: "Jane Smith", 
+    email: "jane.smith@example.com", 
+    hubId: "ws-002",
+    hub: "Workbay Ajah", 
+    checkInTime: new Date(2023, 9, 15, 10, 15).toISOString(), 
+    status: "active"
+  },
+  { 
+    id: "check-3", 
+    learnerId: "user-003",
+    learnerName: "David Wilson", 
+    email: "david.wilson@example.com", 
+    hubId: "ws-003",
+    hub: "Costain Hub 4th Floor (n)", 
+    checkInTime: new Date(2023, 9, 14, 13, 0).toISOString(), 
+    checkOutTime: new Date(2023, 9, 14, 17, 30).toISOString(),
+    status: "completed"
+  }
+];

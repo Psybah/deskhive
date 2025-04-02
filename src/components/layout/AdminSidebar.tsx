@@ -9,8 +9,7 @@ import {
   Menu,
   X,
   Building2,
-  Map,
-  QrCode
+  Map
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LogoFull from "../common/LogoFull";
@@ -54,11 +53,6 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({
       title: "Locations",
       icon: <Map className="h-5 w-5" />,
       path: "/admin/locations",
-    },
-    {
-      title: "Hub Check-In",
-      icon: <QrCode className="h-5 w-5" />,
-      path: "/admin/hub-check-in",
     },
     {
       title: "Settings",

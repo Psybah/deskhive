@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -28,7 +29,7 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import AdminBookings from "./pages/admin/AdminBookings";
 import AdminLocations from "./pages/admin/AdminLocations";
 import AdminSettings from "./pages/admin/AdminSettings";
-import HubCheckIn from "./pages/admin/HubCheckIn";
+import HubManagerDashboard from "./pages/hubmanager/HubManagerDashboard";
 
 // Create a new query client outside of the component
 const queryClient = new QueryClient();
@@ -43,20 +44,10 @@ const App = () => {
             <Toaster />
             <Sonner />
             <Routes>
+              {/* Public routes */}
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/bookings" element={<MyBookings />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/admin/hubs" element={<HubManagement />} />
-              <Route path="/admin/users" element={<AdminUsers />} />
-              <Route path="/admin/bookings" element={<AdminBookings />} />
-              <Route path="/admin/locations" element={<AdminLocations />} />
-              <Route path="/admin/settings" element={<AdminSettings />} />
-              <Route path="/admin/hub-check-in" element={<HubCheckIn />} />
               <Route path="/features" element={<Features />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/faq" element={<FAQ />} />
@@ -65,7 +56,30 @@ const App = () => {
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/cookies" element={<CookiePolicy />} />
               <Route path="/refunds" element={<RefundPolicy />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              
+              {/* Learner routes */}
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/bookings" element={<MyBookings />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
+              
+              {/* Admin routes */}
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/hubs" element={<HubManagement />} />
+              <Route path="/admin/users" element={<AdminUsers />} />
+              <Route path="/admin/bookings" element={<AdminBookings />} />
+              <Route path="/admin/locations" element={<AdminLocations />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
+              
+              {/* Hub Manager routes */}
+              <Route path="/hubmanager" element={<HubManagerDashboard />} />
+              <Route path="/hubmanager/check-in" element={<HubManagerDashboard />} />
+              <Route path="/hubmanager/activity" element={<HubManagerDashboard />} />
+              <Route path="/hubmanager/learners" element={<HubManagerDashboard />} />
+              <Route path="/hubmanager/settings" element={<HubManagerDashboard />} />
+              <Route path="/hubmanager/profile" element={<HubManagerDashboard />} />
+              
+              {/* Catch-all route for 404 */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
