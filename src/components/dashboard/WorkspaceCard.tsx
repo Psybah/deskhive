@@ -23,7 +23,7 @@ interface WorkspaceCardProps {
 
 const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ workspace, onBook }) => {
   return (
-    <div className="glass-card overflow-hidden">
+    <div className="glass-card overflow-hidden hover:shadow-lg transition-all duration-300 bg-white/20 backdrop-blur-lg border border-white/30">
       <div 
         className="h-48 relative bg-cover bg-center" 
         style={{ 

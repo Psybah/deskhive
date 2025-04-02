@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CalendarIcon, Users, Map, Clock, ArrowUpRight, TrendingUp, BarChart3, PieChart } from "lucide-react";
+import { CalendarIcon, Users, Map, Clock, ArrowUpRight, TrendingUp, BarChart3, PieChart, Building2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { bookings } from "@/data/bookings";
 import { workspaces } from "@/data/workspaces";
@@ -11,6 +11,7 @@ import WorkspaceUsageChart from "@/components/admin/WorkspaceUsageChart";
 import OccupancyRateChart from "@/components/admin/OccupancyRateChart";
 import BookingTimesChart from "@/components/admin/BookingTimesChart";
 import WorkspaceManagementTable from "@/components/admin/WorkspaceManagementTable";
+import HubPricingManager from "@/components/admin/HubPricingManager";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
@@ -95,15 +96,16 @@ const Admin = () => {
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-deskhive-navy mb-2">Admin Dashboard</h1>
           <p className="text-sm md:text-base text-deskhive-darkgray/80">
-            Monitor workspace usage, analyze booking patterns, and optimize space management.
+            Monitor hub usage, analyze booking patterns, and optimize space management.
           </p>
         </div>
         
         <Tabs defaultValue="analytics" value={activeTab} onValueChange={setActiveTab}>
           <div className="bg-white glass-card p-4 md:p-6 mb-8 overflow-hidden">
-            <TabsList className="grid grid-cols-2 w-full max-w-[400px] mb-6">
+            <TabsList className="grid grid-cols-3 w-full max-w-[600px] mb-6">
               <TabsTrigger value="analytics">Analytics</TabsTrigger>
-              <TabsTrigger value="management">Workspace Management</TabsTrigger>
+              <TabsTrigger value="management">Hub Management</TabsTrigger>
+              <TabsTrigger value="pricing">Hub Pricing</TabsTrigger>
             </TabsList>
             
             <TabsContent value="analytics" className="space-y-6">
@@ -124,7 +126,7 @@ const Admin = () => {
                 
                 <Card className="p-2 md:p-4">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 p-2 md:pb-2">
-                    <CardTitle className="text-xs md:text-sm font-medium">Workspaces</CardTitle>
+                    <CardTitle className="text-xs md:text-sm font-medium">Hubs</CardTitle>
                     <Map className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
@@ -167,9 +169,9 @@ const Admin = () => {
                 {/* Workspace Usage Chart */}
                 <Card className="col-span-1 overflow-hidden">
                   <CardHeader className="p-3 md:p-4">
-                    <CardTitle className="text-sm md:text-lg">Workspace Usage</CardTitle>
+                    <CardTitle className="text-sm md:text-lg">Hub Usage</CardTitle>
                     <CardDescription className="text-xs md:text-sm">
-                      Bookings by workspace type
+                      Bookings by hub type
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="h-60 md:h-80 p-0 md:p-0">
@@ -214,7 +216,7 @@ const Admin = () => {
                     </Button>
                   </div>
                   <CardDescription className="text-xs md:text-sm">
-                    AI-powered insights to optimize workspace management
+                    AI-powered insights to optimize hub management
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-3 md:p-6 pt-0 md:pt-0">
@@ -240,6 +242,12 @@ const Admin = () => {
             <TabsContent value="management">
               <div className="overflow-x-auto">
                 <WorkspaceManagementTable />
+              </div>
+            </TabsContent>
+
+            <TabsContent value="pricing">
+              <div className="overflow-x-auto">
+                <HubPricingManager />
               </div>
             </TabsContent>
           </div>

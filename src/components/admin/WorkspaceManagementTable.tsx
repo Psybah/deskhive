@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -80,7 +81,8 @@ const WorkspaceManagementTable = () => {
       availability: newWorkspace.availability,
       features: newWorkspace.features.split(',').map(f => f.trim()),
       description: newWorkspace.description,
-      image: ""
+      image: "",
+      enabled: true // Adding the enabled property with default value of true
     };
     
     setTableWorkspaces([...tableWorkspaces, workspace]);

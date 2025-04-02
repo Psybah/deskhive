@@ -21,39 +21,57 @@ import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import CookiePolicy from "./pages/legal/CookiePolicy";
 import RefundPolicy from "./pages/legal/RefundPolicy";
 import LoadingDisplay from "./components/common/LoadingDisplay";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import HubManagement from "./pages/admin/HubManagement";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminBookings from "./pages/admin/AdminBookings";
+import AdminLocations from "./pages/admin/AdminLocations";
+import AdminSettings from "./pages/admin/AdminSettings";
+import HubCheckIn from "./pages/admin/HubCheckIn";
 
 // Create a new query client outside of the component
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <ScrollToTop />
-          <Toaster />
-          <Sonner />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/bookings" element={<MyBookings />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/cookies" element={<CookiePolicy />} />
-            <Route path="/refunds" element={<RefundPolicy />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <BrowserRouter>
+            <ScrollToTop />
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/bookings" element={<MyBookings />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/hubs" element={<HubManagement />} />
+              <Route path="/admin/users" element={<AdminUsers />} />
+              <Route path="/admin/bookings" element={<AdminBookings />} />
+              <Route path="/admin/locations" element={<AdminLocations />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
+              <Route path="/admin/hub-check-in" element={<HubCheckIn />} />
+              <Route path="/features" element={<Features />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/cookies" element={<CookiePolicy />} />
+              <Route path="/refunds" element={<RefundPolicy />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
         </TooltipProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </React.StrictMode>
   );
 };
 
