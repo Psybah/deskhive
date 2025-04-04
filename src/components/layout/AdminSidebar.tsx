@@ -24,7 +24,7 @@ interface AdminSidebarProps {
 const AdminSidebar: React.FC<AdminSidebarProps> = ({
   isOpen,
   toggleSidebar,
-  user
+  user = {}
 }) => {
   const location = useLocation();
   
@@ -61,6 +61,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({
     },
   ];
 
+  // Safely generate user initials from name or use a fallback
   const userInitials = user?.name
     ? user.name
         .split(" ")

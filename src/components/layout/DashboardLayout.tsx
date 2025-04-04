@@ -41,8 +41,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const isMobile = useIsMobile();
   const [isNavOpen, setIsNavOpen] = useState(!isMobile);
   
-  const user = JSON.parse(localStorage.getItem("user") || '{"name": "Guest", "email": "guest@example.com"}');
-  const isAdmin = user.role === "admin";
+  // Get user from localStorage with a fallback to prevent null errors
+  const userStr = localStorage.getItem("user");
+  const defaultUser = {name: "Guest User", email: "guest@example.com", role: ""};
+  const user = userStr ? JSON.parse(userStr) : defaultUser;
+  
+  const isAdmin = user?.role === "admin";
   const isAdminRoute = location.pathname.startsWith("/admin");
   
   useEffect(() => {
@@ -96,11 +100,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     });
   }
 
-  const userInitials = user.name
-    .split(" ")
-    .map((n: string) => n[0])
-    .join("")
-    .toUpperCase();
+  // Safely generate user initials or use fallback
+  const userInitials = user?.name
+    ? user.name
+        .split(" ")
+        .map((n: string) => n[0])
+        .join("")
+        .toUpperCase()
+    : "U";
 
   return (
     <div className="min-h-screen bg-deskhive-skyblue flex">
@@ -178,9 +185,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                   </Avatar>
                   <div>
                     <p className="text-sm font-medium text-deskhive-darkgray">
-                      {user.name}
+                      {user?.name || "Guest User"}
                     </p>
-                    <p className="text-xs text-deskhive-darkgray/70">{user.email}</p>
+                    <p className="text-xs text-deskhive-darkgray/70">{user?.email || "guest@example.com"}</p>
                   </div>
                 </div>
                 <Button variant="ghost" size="icon" onClick={handleLogout}>

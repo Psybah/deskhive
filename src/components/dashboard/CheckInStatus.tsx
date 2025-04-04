@@ -15,6 +15,11 @@ interface CheckInStatusProps {
 const CheckInStatus: React.FC<CheckInStatusProps> = ({ userEmail }) => {
   const { toast } = useToast();
   
+  // Safety check for empty email
+  if (!userEmail) {
+    return null;
+  }
+  
   // Find active check-in for this user
   const activeCheckIn = checkIns.find(
     checkIn => checkIn.email === userEmail && checkIn.status === "active"
@@ -37,7 +42,7 @@ const CheckInStatus: React.FC<CheckInStatusProps> = ({ userEmail }) => {
     <Card className="border-2 border-green-500 bg-green-50 shadow-md">
       <CardHeader className="bg-green-100 pb-2">
         <CardTitle className="flex items-center text-green-800">
-          <Badge variant="success" className="mr-2 bg-green-600">Active</Badge>
+          <Badge variant="outline" className="mr-2 bg-green-600 text-white border-0">Active</Badge>
           Currently Checked In
         </CardTitle>
       </CardHeader>

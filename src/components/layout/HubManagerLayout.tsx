@@ -39,7 +39,10 @@ const HubManagerLayout: React.FC<HubManagerLayoutProps> = ({ children }) => {
   const isMobile = useIsMobile();
   const [isNavOpen, setIsNavOpen] = useState(!isMobile);
   
-  const user = JSON.parse(localStorage.getItem("user") || '{"name": "Hub Manager", "email": "manager@example.com", "role": "hubmanager"}');
+  // Get user from localStorage with a fallback to prevent null errors
+  const userStr = localStorage.getItem("user");
+  const defaultUser = {name: "Hub Manager", email: "manager@example.com", role: "hubmanager"};
+  const user = userStr ? JSON.parse(userStr) : defaultUser;
   
   useEffect(() => {
     if (isMobile) {
@@ -93,11 +96,14 @@ const HubManagerLayout: React.FC<HubManagerLayoutProps> = ({ children }) => {
     },
   ];
 
-  const userInitials = user.name
-    .split(" ")
-    .map((n: string) => n[0])
-    .join("")
-    .toUpperCase();
+  // Safely generate user initials or use a fallback
+  const userInitials = user?.name
+    ? user.name
+        .split(" ")
+        .map((n: string) => n[0])
+        .join("")
+        .toUpperCase()
+    : "HM";
 
   return (
     <div className="min-h-screen bg-deskhive-skyblue flex">

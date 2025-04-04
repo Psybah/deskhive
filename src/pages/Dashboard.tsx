@@ -1,12 +1,10 @@
-
 import React, { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import WorkspaceCard from "@/components/dashboard/WorkspaceCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Filter, MapPin, Building2, UserCheck } from "lucide-react";
+import { Calendar, SlidersHorizontal, MapPin, Building2, UserCheck } from "lucide-react";
 import { workspaces } from "@/data/workspaces";
 import BookingModal from "@/components/dashboard/BookingModal";
 import FilterModal from "@/components/dashboard/FilterModal";
@@ -17,9 +15,16 @@ const Dashboard = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [selectedWorkspace, setSelectedWorkspace] = useState(null);
-  const user = JSON.parse(localStorage.getItem("user") || '{"name": "Guest User", "email": "guest@example.com"}');
   
-  const filteredWorkspaces = workspaces.filter(
+  const userStr = localStorage.getItem("user");
+  const defaultUser = {name: "Guest User", email: "guest@example.com"};
+  const user = userStr ? JSON.parse(userStr) : defaultUser;
+
+  const availableWorkspaces = workspaces.filter(workspace => 
+    workspace.enabled !== false
+  );
+  
+  const filteredWorkspaces = availableWorkspaces.filter(
     (workspace) =>
       workspace.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       workspace.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -31,22 +36,30 @@ const Dashboard = () => {
     setIsBookingModalOpen(true);
   };
 
+  const handleApplyFilters = (filters) => {
+    console.log("Filters applied:", filters);
+  };
+
+  const userName = user?.name ? user.name.split(' ')[0] : 'Guest';
+  const userEmail = user?.email || '';
+
   return (
     <DashboardLayout>
       <div className="w-full max-w-7xl mx-auto">
         <div className="mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-deskhive-navy mb-2">Welcome back, {user.name.split(' ')[0]}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-deskhive-navy mb-2">
+            Welcome back, {userName}
+          </h1>
           <p className="text-sm md:text-base text-deskhive-darkgray/80">
             Find and book the perfect workspace for your needs
           </p>
         </div>
         
-        {/* Check-in status */}
         <div className="mb-6">
-          <CheckInStatus userEmail={user.email} />
+          <CheckInStatus userEmail={userEmail} />
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-2 gap-6 mb-8">
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-lg flex items-center">
@@ -75,7 +88,7 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                {workspaces.slice(0, 2).map((workspace) => (
+                {availableWorkspaces.slice(0, 2).map((workspace) => (
                   <div key={workspace.id} className="p-2 border rounded-md flex justify-between items-center">
                     <div>
                       <p className="font-medium">{workspace.name}</p>
@@ -94,110 +107,45 @@ const Dashboard = () => {
           </Card>
         </div>
         
-        <div className="mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between">
-          <div className="relative w-full sm:w-96">
+        <div className="mb-6 relative w-full">
+          <div className="relative w-full">
             <Input
               placeholder="Search by name, type, or location..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-white/60 backdrop-blur-sm border-white/30"
+              className="pl-10 pr-16 bg-white/60 backdrop-blur-sm border-white/30"
             />
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-deskhive-darkgray/70" />
+            <Button 
+              variant="ghost" 
+              onClick={() => setIsFilterModalOpen(true)} 
+              className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0"
+            >
+              <SlidersHorizontal className="h-4 w-4 text-deskhive-darkgray/70" />
+            </Button>
           </div>
-          
-          <Button variant="outline" onClick={() => setIsFilterModalOpen(true)} className="w-full sm:w-auto">
-            <Filter className="h-4 w-4 mr-2" />
-            Filters
-          </Button>
         </div>
         
-        <Tabs defaultValue="all" className="mb-8">
-          <TabsList className="glass-card bg-white/20 backdrop-blur-lg border border-white/30">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="meeting-room">Meeting Rooms</TabsTrigger>
-            <TabsTrigger value="hot-desk">Hot Desks</TabsTrigger>
-            <TabsTrigger value="private-office">Private Offices</TabsTrigger>
-            <TabsTrigger value="event-space">Event Spaces</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="all" className="pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredWorkspaces.map((workspace) => (
-                <WorkspaceCard
-                  key={workspace.id}
-                  workspace={workspace}
-                  onBookNow={() => handleOpenBookingModal(workspace)}
-                />
-              ))}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="meeting-room" className="pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredWorkspaces
-                .filter((w) => w.type === "Meeting Room")
-                .map((workspace) => (
-                  <WorkspaceCard
-                    key={workspace.id}
-                    workspace={workspace}
-                    onBookNow={() => handleOpenBookingModal(workspace)}
-                  />
-                ))}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="hot-desk" className="pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredWorkspaces
-                .filter((w) => w.type === "Hot Desk")
-                .map((workspace) => (
-                  <WorkspaceCard
-                    key={workspace.id}
-                    workspace={workspace}
-                    onBookNow={() => handleOpenBookingModal(workspace)}
-                  />
-                ))}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="private-office" className="pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredWorkspaces
-                .filter((w) => w.type === "Private Office")
-                .map((workspace) => (
-                  <WorkspaceCard
-                    key={workspace.id}
-                    workspace={workspace}
-                    onBookNow={() => handleOpenBookingModal(workspace)}
-                  />
-                ))}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="event-space" className="pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredWorkspaces
-                .filter((w) => w.type === "Event Space")
-                .map((workspace) => (
-                  <WorkspaceCard
-                    key={workspace.id}
-                    workspace={workspace}
-                    onBookNow={() => handleOpenBookingModal(workspace)}
-                  />
-                ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredWorkspaces.map((workspace) => (
+            <WorkspaceCard
+              key={workspace.id}
+              workspace={workspace}
+              onBook={() => handleOpenBookingModal(workspace)}
+            />
+          ))}
+        </div>
         
         <BookingModal
           isOpen={isBookingModalOpen}
           onClose={() => setIsBookingModalOpen(false)}
-          workspace={selectedWorkspace}
+          workspace={selectedWorkspace || {}}
         />
         
         <FilterModal
           isOpen={isFilterModalOpen}
           onClose={() => setIsFilterModalOpen(false)}
+          onApplyFilters={handleApplyFilters}
         />
       </div>
     </DashboardLayout>

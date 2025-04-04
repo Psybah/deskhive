@@ -49,7 +49,7 @@ export const bookings = [
   {
     id: "bk-005",
     workspaceId: "ws-006",
-    workspace: workspaces.find(w => w.id === "ws-006"),
+    workspace: workspaces.find(w => w.id === "ws-006") || null,
     date: "2023-07-28",
     startTime: "11:00",
     endTime: "13:00",
@@ -71,7 +71,7 @@ export const bookings = [
   {
     id: "bk-007",
     workspaceId: "ws-008",
-    workspace: workspaces.find(w => w.id === "ws-008"),
+    workspace: workspaces.find(w => w.id === "ws-008") || null,
     date: "2023-08-22",
     startTime: "13:00",
     endTime: "16:00",

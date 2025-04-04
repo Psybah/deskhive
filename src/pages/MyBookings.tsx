@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -46,7 +45,7 @@ const MyBookings = () => {
     // In a real app, you would make an API call here
     toast({
       title: "Booking cancelled",
-      description: `Your booking for ${selectedBooking.workspace.name} has been cancelled.`,
+      description: `Your booking for ${selectedBooking?.workspace?.name || 'the workspace'} has been cancelled.`,
     });
     setDeleteDialogOpen(false);
   };
@@ -72,7 +71,7 @@ const MyBookings = () => {
     // In a real app, you would make an API call here
     toast({
       title: "Booking rescheduled",
-      description: `Your booking for ${selectedBooking.workspace.name} has been rescheduled to ${format(rescheduleDate, 'MMMM d, yyyy')}.`,
+      description: `Your booking for ${selectedBooking?.workspace?.name || 'the workspace'} has been rescheduled to ${format(rescheduleDate, 'MMMM d, yyyy')}.`,
     });
     setRescheduleDialogOpen(false);
   };
@@ -96,13 +95,16 @@ const MyBookings = () => {
     // In a real app, you would make an API call here
     toast({
       title: "Booking extended",
-      description: `Your booking for ${selectedBooking.workspace.name} has been extended until ${extendEndTime}.`,
+      description: `Your booking for ${selectedBooking?.workspace?.name || 'the workspace'} has been extended until ${extendEndTime}.`,
     });
     setExtendDialogOpen(false);
   };
 
   const renderBookingCard = (booking: any, isPast = false) => {
-    const workspace = workspaces.find(w => w.id === booking.workspaceId) || booking.workspace;
+    // Get workspace from booking or find by ID with a fallback for when workspace is undefined
+    const workspace = booking.workspace || 
+                     workspaces.find(w => w.id === booking.workspaceId) || 
+                     { name: "Unnamed Workspace", location: "Unknown Location" };
     
     return (
       <div key={booking.id} className="glass-card p-6 mb-4">
@@ -275,7 +277,9 @@ const MyBookings = () => {
           
           {selectedBooking && (
             <div className="bg-gray-50 p-4 rounded-md text-sm">
-              <p className="font-medium text-deskhive-navy mb-1">{selectedBooking.workspace.name}</p>
+              <p className="font-medium text-deskhive-navy mb-1">
+                {selectedBooking.workspace?.name || "Unnamed Workspace"}
+              </p>
               <p className="text-deskhive-darkgray/80">
                 {format(new Date(selectedBooking.date), 'MMMM d, yyyy')} • {selectedBooking.startTime} - {selectedBooking.endTime}
               </p>

@@ -42,7 +42,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, onApplyFilte
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="glass-modal bg-white/30 backdrop-blur-lg border border-white/30 rounded-tr-xl rounded-br-xl sm:max-w-[425px]">
+      <DialogContent className="bg-white border rounded-lg shadow-md sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Filter Workspaces</DialogTitle>
           <DialogDescription>

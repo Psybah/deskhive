@@ -27,6 +27,10 @@ const BookingModal: React.FC<BookingModalProps> = ({ workspace, isOpen, onClose,
   const [notes, setNotes] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Get workspace details safely with fallbacks
+  const workspaceName = workspace?.name || "this workspace";
+  const workspaceLocation = workspace?.location || "Unknown location";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -58,7 +62,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ workspace, isOpen, onClose,
     setTimeout(() => {
       toast({
         title: "Booking confirmed",
-        description: `Your booking for ${workspace.name} on ${format(date, 'MMMM d, yyyy')} from ${startTime} to ${endTime} has been confirmed.`,
+        description: `Your booking for ${workspaceName} on ${format(date, 'MMMM d, yyyy')} from ${startTime} to ${endTime} has been confirmed.`,
       });
       
       // Send booking confirmation email (simulated)
@@ -90,7 +94,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ workspace, isOpen, onClose,
         <DialogHeader>
           <DialogTitle>Book Hub</DialogTitle>
           <DialogDescription>
-            Complete the form below to book {workspace.name}.
+            Complete the form below to book {workspaceName}.
           </DialogDescription>
         </DialogHeader>
         
@@ -185,8 +189,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ workspace, isOpen, onClose,
                 <div className="flex items-start">
                   <MapPin className="mr-2 h-4 w-4 mt-0.5 text-deskhive-orange" />
                   <div>
-                    <p className="font-medium">{workspace.name}</p>
-                    <p className="text-gray-500">{workspace.location}</p>
+                    <p className="font-medium">{workspaceName}</p>
+                    <p className="text-gray-500">{workspaceLocation}</p>
                   </div>
                 </div>
                 <div className="flex items-center">

@@ -17,11 +17,17 @@ interface WorkspaceCardProps {
     pricePerHour: number;
     image: string;
     availability: string;
+    enabled?: boolean;
   };
   onBook: () => void;
 }
 
 const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ workspace, onBook }) => {
+  // If workspace is disabled or workspace is null, don't render it
+  if (!workspace || workspace.enabled === false) {
+    return null;
+  }
+  
   return (
     <div className="glass-card overflow-hidden hover:shadow-lg transition-all duration-300 bg-white/20 backdrop-blur-lg border border-white/30">
       <div 
@@ -83,7 +89,8 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ workspace, onBook }) => {
         
         <div className="flex items-center justify-between mt-4">
           <div className="text-deskhive-navy font-semibold">
-            ₦{workspace.pricePerHour.toLocaleString()} <span className="text-sm font-normal text-deskhive-darkgray/70">/ hour</span>
+            {/* Removed price display */}
+            <span className="text-sm font-normal text-deskhive-darkgray/70">View details</span>
           </div>
           <Button onClick={onBook} className="btn-primary">
             Book Now
